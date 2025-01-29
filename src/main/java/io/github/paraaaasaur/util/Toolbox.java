@@ -1,3 +1,4 @@
+package io.github.paraaaasaur.util;
 
 import com.mysql.cj.PreparedQuery;
 
