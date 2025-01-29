@@ -1,8 +1,9 @@
 
-//import com.mysql.cj.PreparedQuery;
+import com.mysql.cj.PreparedQuery;
 
-//import java.lang.reflect.Field;
-//import java.sql.PreparedStatement;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -36,32 +37,32 @@ public interface Toolbox {
 	String ANSI_RESET = "\u001B[0m";
 
 
-//	static Set<Field> getFieldHierarchy(Class<?> clazz) {
-//		SequencedSet<Field> fieldSet = new LinkedHashSet<>();
-//
-//		while (clazz != null) {
-//			// Add fields declared in the current class
-//			Field[] declaredFields = clazz.getDeclaredFields();
-//			Collections.addAll(fieldSet, declaredFields);
-//
-//			// Move to the superclass
-//			clazz = clazz.getSuperclass();
-//		}
-//
-//		String declaringClass = "";
-//		for (Field field : fieldSet) {
-//			String tmp = field.getDeclaringClass().getSimpleName();
-//			System.out.print(tmp.equals(declaringClass)?
-//					"" : "# " + (declaringClass = tmp) + "\n");
-//
-//			System.out.printf("%-25s | %-20s | %-10s\n",
-//					field.accessFlags(),
-//					field.getType().getSimpleName(),
-//					field.getName());
-//		}
-//
-//		return fieldSet;
-//	}
+	static Set<Field> getFieldHierarchy(Class<?> clazz) {
+		Set<Field> fieldSet = new LinkedHashSet<>();
+
+		while (clazz != null) {
+			// Add fields declared in the current class
+			Field[] declaredFields = clazz.getDeclaredFields();
+			Collections.addAll(fieldSet, declaredFields);
+
+			// Move to the superclass
+			clazz = clazz.getSuperclass();
+		}
+
+		String declaringClass = "";
+		for (Field field : fieldSet) {
+			String tmp = field.getDeclaringClass().getSimpleName();
+			System.out.print(tmp.equals(declaringClass)?
+					"" : "# " + (declaringClass = tmp) + "\n");
+
+			System.out.printf("%-25s | %-20s | %-10s\n",
+					Modifier.toString(field.getModifiers()),
+					field.getType().getSimpleName(),
+					field.getName());
+		}
+
+		return fieldSet;
+	}
 
 	static void hl() {
 		System.out.println("=".repeat(70));
@@ -141,10 +142,10 @@ public interface Toolbox {
 		}
 	}
 
-//	static String psQueryString(PreparedStatement ps) {
-//		return (ps instanceof com.mysql.cj.jdbc.ClientPreparedStatement psImpl)?
-//				((PreparedQuery) psImpl.getQuery()).asSql() : "^_^?";
-//	}
+	static String psQueryString(PreparedStatement ps) {
+		return (ps instanceof com.mysql.cj.jdbc.ClientPreparedStatement psImpl)?
+				((PreparedQuery) psImpl.getQuery()).asSql() : "^_^?";
+	}
 
 	static boolean printRecords(ResultSet resultSet) throws SQLException {
 		boolean foundData = false;
@@ -169,9 +170,6 @@ public interface Toolbox {
 
 		return foundData;
 	}
-
-
-
 
 
 	static String black(String text) {
@@ -236,6 +234,11 @@ public interface Toolbox {
 
 	static String whiteBg(String text) {
 		return ANSI_WHITE_BG + text + ANSI_RESET;
+	}
+
+	/** This should print foo*/
+	static void foo() {
+		System.out.println("foo");
 	}
 
 
