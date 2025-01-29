@@ -7,7 +7,7 @@
     <!-- The Basics -->
     <groupId>io.github.paraaaasaur</groupId>
     <artifactId>basic-toolbox</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -33,6 +33,9 @@
     </properties>
 
     <!-- More Project Information -->
+    <name>basic-toolbox</name>
+    <description>A single helper interface</description>
+    <url>https://github.com/paraaaasaur/basic-toolbox</url>
     <licenses>
         <license>
             <name>MIT License</name>
