@@ -172,6 +172,16 @@ public interface Toolbox {
 		return foundData;
 	}
 
+	static String caseSwap(String string) {
+		var sb = new StringBuilder(string.length());
+		for (char c : string.toCharArray()) {
+			if (65 <= c && c < 91) sb.append((char) (c + 32));
+			else if (97 <= c && c < 123) sb.append((char) (c - 32));
+			else sb.append(c);
+		}
+		return sb.toString();
+	}
+
 
 	static String black(String text) {
 		return ANSI_BLACK + text + ANSI_RESET;
@@ -236,12 +246,5 @@ public interface Toolbox {
 	static String whiteBg(String text) {
 		return ANSI_WHITE_BG + text + ANSI_RESET;
 	}
-
-	/** This should print foo*/
-	static void foo() {
-		System.out.println("foo");
-	}
-
-
 
 }
